@@ -1,0 +1,1514 @@
+[
+    {
+        "from": 0.01,
+        "to": 4,
+        "prices": {
+            "LP": {
+                "base": 70,
+                "autopay": 70,
+                "prepay": 560,
+                "monthly": 46.67
+            },
+            "Fire Ant Control": {
+                "base": 120,
+                "autopay": 120,
+                "prepay": 960,
+                "monthly": 80
+            },
+            "Core Aeration": {
+                "base": 151,
+                "autopay": 151,
+                "prepay": 1208,
+                "monthly": 100.67
+            }
+        }
+    },
+    {
+        "from": 4.01,
+        "to": 4.5,
+        "prices": {
+            "LP": {
+                "base": 77,
+                "autopay": 77,
+                "prepay": 616,
+                "monthly": 51.33
+            },
+            "Fire Ant Control": {
+                "base": 135,
+                "autopay": 135,
+                "prepay": 1080,
+                "monthly": 90
+            },
+            "Core Aeration": {
+                "base": 160,
+                "autopay": 160,
+                "prepay": 1280,
+                "monthly": 106.67
+            }
+        }
+    },
+    {
+        "from": 4.51,
+        "to": 5,
+        "prices": {
+            "LP": {
+                "base": 85,
+                "autopay": 85,
+                "prepay": 680,
+                "monthly": 56.67
+            },
+            "Fire Ant Control": {
+                "base": 150,
+                "autopay": 150,
+                "prepay": 1200,
+                "monthly": 100
+            },
+            "Core Aeration": {
+                "base": 164,
+                "autopay": 164,
+                "prepay": 1312,
+                "monthly": 109.33
+            }
+        }
+    },
+    {
+        "from": 5.01,
+        "to": 5.5,
+        "prices": {
+            "LP": {
+                "base": 94,
+                "autopay": 94,
+                "prepay": 752,
+                "monthly": 62.67
+            },
+            "Fire Ant Control": {
+                "base": 165,
+                "autopay": 165,
+                "prepay": 1320,
+                "monthly": 110
+            },
+            "Core Aeration": {
+                "base": 173,
+                "autopay": 173,
+                "prepay": 1384,
+                "monthly": 115.33
+            }
+        }
+    },
+    {
+        "from": 5.51,
+        "to": 6,
+        "prices": {
+            "LP": {
+                "base": 102,
+                "autopay": 102,
+                "prepay": 816,
+                "monthly": 68
+            },
+            "Fire Ant Control": {
+                "base": 180,
+                "autopay": 180,
+                "prepay": 1440,
+                "monthly": 120
+            },
+            "Core Aeration": {
+                "base": 182,
+                "autopay": 182,
+                "prepay": 1456,
+                "monthly": 121.33
+            }
+        }
+    },
+    {
+        "from": 6.01,
+        "to": 6.5,
+        "prices": {
+            "LP": {
+                "base": 111,
+                "autopay": 111,
+                "prepay": 888,
+                "monthly": 74
+            },
+            "Fire Ant Control": {
+                "base": 195,
+                "autopay": 195,
+                "prepay": 1560,
+                "monthly": 130
+            },
+            "Core Aeration": {
+                "base": 191,
+                "autopay": 191,
+                "prepay": 1528,
+                "monthly": 127.33
+            }
+        }
+    },
+    {
+        "from": 6.51,
+        "to": 7,
+        "prices": {
+            "LP": {
+                "base": 119,
+                "autopay": 119,
+                "prepay": 952,
+                "monthly": 79.33
+            },
+            "Fire Ant Control": {
+                "base": 210,
+                "autopay": 210,
+                "prepay": 1680,
+                "monthly": 140
+            },
+            "Core Aeration": {
+                "base": 195,
+                "autopay": 195,
+                "prepay": 1560,
+                "monthly": 130
+            }
+        }
+    },
+    {
+        "from": 7.01,
+        "to": 7.5,
+        "prices": {
+            "LP": {
+                "base": 128,
+                "autopay": 128,
+                "prepay": 1024,
+                "monthly": 85.33
+            },
+            "Fire Ant Control": {
+                "base": 225,
+                "autopay": 225,
+                "prepay": 1800,
+                "monthly": 150
+            },
+            "Core Aeration": {
+                "base": 204,
+                "autopay": 204,
+                "prepay": 1632,
+                "monthly": 136
+            }
+        }
+    },
+    {
+        "from": 7.51,
+        "to": 8,
+        "prices": {
+            "LP": {
+                "base": 136,
+                "autopay": 136,
+                "prepay": 1088,
+                "monthly": 90.67
+            },
+            "Fire Ant Control": {
+                "base": 240,
+                "autopay": 240,
+                "prepay": 1920,
+                "monthly": 160
+            },
+            "Core Aeration": {
+                "base": 213,
+                "autopay": 213,
+                "prepay": 1704,
+                "monthly": 142
+            }
+        }
+    },
+    {
+        "from": 8.01,
+        "to": 8.5,
+        "prices": {
+            "LP": {
+                "base": 145,
+                "autopay": 145,
+                "prepay": 1160,
+                "monthly": 96.67
+            },
+            "Fire Ant Control": {
+                "base": 255,
+                "autopay": 255,
+                "prepay": 2040,
+                "monthly": 170
+            },
+            "Core Aeration": {
+                "base": 222,
+                "autopay": 222,
+                "prepay": 1776,
+                "monthly": 148
+            }
+        }
+    },
+    {
+        "from": 8.51,
+        "to": 9,
+        "prices": {
+            "LP": {
+                "base": 153,
+                "autopay": 153,
+                "prepay": 1224,
+                "monthly": 102
+            },
+            "Fire Ant Control": {
+                "base": 270,
+                "autopay": 270,
+                "prepay": 2160,
+                "monthly": 180
+            },
+            "Core Aeration": {
+                "base": 226,
+                "autopay": 226,
+                "prepay": 1808,
+                "monthly": 150.67
+            }
+        }
+    },
+    {
+        "from": 9.01,
+        "to": 9.5,
+        "prices": {
+            "LP": {
+                "base": 162,
+                "autopay": 162,
+                "prepay": 1296,
+                "monthly": 108
+            },
+            "Fire Ant Control": {
+                "base": 285,
+                "autopay": 285,
+                "prepay": 2280,
+                "monthly": 190
+            },
+            "Core Aeration": {
+                "base": 235,
+                "autopay": 235,
+                "prepay": 1880,
+                "monthly": 156.67
+            }
+        }
+    },
+    {
+        "from": 9.51,
+        "to": 10,
+        "prices": {
+            "LP": {
+                "base": 170,
+                "autopay": 170,
+                "prepay": 1360,
+                "monthly": 113.33
+            },
+            "Fire Ant Control": {
+                "base": 300,
+                "autopay": 300,
+                "prepay": 2400,
+                "monthly": 200
+            },
+            "Core Aeration": {
+                "base": 244,
+                "autopay": 244,
+                "prepay": 1952,
+                "monthly": 162.67
+            }
+        }
+    },
+    {
+        "from": 10.01,
+        "to": 11,
+        "prices": {
+            "LP": {
+                "base": 187,
+                "autopay": 187,
+                "prepay": 1496,
+                "monthly": 124.67
+            },
+            "Fire Ant Control": {
+                "base": 330,
+                "autopay": 330,
+                "prepay": 2640,
+                "monthly": 220
+            },
+            "Core Aeration": {
+                "base": 257,
+                "autopay": 257,
+                "prepay": 2056,
+                "monthly": 171.33
+            }
+        }
+    },
+    {
+        "from": 11.01,
+        "to": 12,
+        "prices": {
+            "LP": {
+                "base": 204,
+                "autopay": 204,
+                "prepay": 1632,
+                "monthly": 136
+            },
+            "Fire Ant Control": {
+                "base": 360,
+                "autopay": 360,
+                "prepay": 2880,
+                "monthly": 240
+            },
+            "Core Aeration": {
+                "base": 275,
+                "autopay": 275,
+                "prepay": 2200,
+                "monthly": 183.33
+            }
+        }
+    },
+    {
+        "from": 12.01,
+        "to": 13,
+        "prices": {
+            "LP": {
+                "base": 221,
+                "autopay": 221,
+                "prepay": 1768,
+                "monthly": 147.33
+            },
+            "Fire Ant Control": {
+                "base": 390,
+                "autopay": 390,
+                "prepay": 3120,
+                "monthly": 260
+            },
+            "Core Aeration": {
+                "base": 288,
+                "autopay": 288,
+                "prepay": 2304,
+                "monthly": 192
+            }
+        }
+    },
+    {
+        "from": 13.01,
+        "to": 14,
+        "prices": {
+            "LP": {
+                "base": 238,
+                "autopay": 238,
+                "prepay": 1904,
+                "monthly": 158.67
+            },
+            "Fire Ant Control": {
+                "base": 420,
+                "autopay": 420,
+                "prepay": 3360,
+                "monthly": 280
+            },
+            "Core Aeration": {
+                "base": 306,
+                "autopay": 306,
+                "prepay": 2448,
+                "monthly": 204
+            }
+        }
+    },
+    {
+        "from": 14.01,
+        "to": 15,
+        "prices": {
+            "LP": {
+                "base": 255,
+                "autopay": 255,
+                "prepay": 2040,
+                "monthly": 170
+            },
+            "Fire Ant Control": {
+                "base": 450,
+                "autopay": 450,
+                "prepay": 3600,
+                "monthly": 300
+            },
+            "Core Aeration": {
+                "base": 319,
+                "autopay": 319,
+                "prepay": 2552,
+                "monthly": 212.67
+            }
+        }
+    },
+    {
+        "from": 15.01,
+        "to": 16,
+        "prices": {
+            "LP": {
+                "base": 272,
+                "autopay": 272,
+                "prepay": 2176,
+                "monthly": 181.33
+            },
+            "Fire Ant Control": {
+                "base": 480,
+                "autopay": 480,
+                "prepay": 3840,
+                "monthly": 320
+            },
+            "Core Aeration": {
+                "base": 337,
+                "autopay": 337,
+                "prepay": 2696,
+                "monthly": 224.67
+            }
+        }
+    },
+    {
+        "from": 16.01,
+        "to": 17,
+        "prices": {
+            "LP": {
+                "base": 289,
+                "autopay": 289,
+                "prepay": 2312,
+                "monthly": 192.67
+            },
+            "Fire Ant Control": {
+                "base": 510,
+                "autopay": 510,
+                "prepay": 4080,
+                "monthly": 340
+            },
+            "Core Aeration": {
+                "base": 350,
+                "autopay": 350,
+                "prepay": 2800,
+                "monthly": 233.33
+            }
+        }
+    },
+    {
+        "from": 17.01,
+        "to": 18,
+        "prices": {
+            "LP": {
+                "base": 306,
+                "autopay": 306,
+                "prepay": 2448,
+                "monthly": 204
+            },
+            "Fire Ant Control": {
+                "base": 540,
+                "autopay": 540,
+                "prepay": 4320,
+                "monthly": 360
+            },
+            "Core Aeration": {
+                "base": 368,
+                "autopay": 368,
+                "prepay": 2944,
+                "monthly": 245.33
+            }
+        }
+    },
+    {
+        "from": 18.01,
+        "to": 19,
+        "prices": {
+            "LP": {
+                "base": 323,
+                "autopay": 323,
+                "prepay": 2584,
+                "monthly": 215.33
+            },
+            "Fire Ant Control": {
+                "base": 570,
+                "autopay": 570,
+                "prepay": 4560,
+                "monthly": 380
+            },
+            "Core Aeration": {
+                "base": 381,
+                "autopay": 381,
+                "prepay": 3048,
+                "monthly": 254
+            }
+        }
+    },
+    {
+        "from": 19.01,
+        "to": 20,
+        "prices": {
+            "LP": {
+                "base": 340,
+                "autopay": 340,
+                "prepay": 2720,
+                "monthly": 226.67
+            },
+            "Fire Ant Control": {
+                "base": 600,
+                "autopay": 600,
+                "prepay": 4800,
+                "monthly": 400
+            },
+            "Core Aeration": {
+                "base": 399,
+                "autopay": 399,
+                "prepay": 3192,
+                "monthly": 266
+            }
+        }
+    },
+    {
+        "from": 20.01,
+        "to": 21,
+        "prices": {
+            "LP": {
+                "base": 357,
+                "autopay": 357,
+                "prepay": 2856,
+                "monthly": 238
+            },
+            "Fire Ant Control": {
+                "base": 630,
+                "autopay": 630,
+                "prepay": 5040,
+                "monthly": 420
+            },
+            "Core Aeration": {
+                "base": 412,
+                "autopay": 412,
+                "prepay": 3296,
+                "monthly": 274.67
+            }
+        }
+    },
+    {
+        "from": 21.01,
+        "to": 22,
+        "prices": {
+            "LP": {
+                "base": 374,
+                "autopay": 374,
+                "prepay": 2992,
+                "monthly": 249.33
+            },
+            "Fire Ant Control": {
+                "base": 660,
+                "autopay": 660,
+                "prepay": 5280,
+                "monthly": 440
+            },
+            "Core Aeration": {
+                "base": 430,
+                "autopay": 430,
+                "prepay": 3440,
+                "monthly": 286.67
+            }
+        }
+    },
+    {
+        "from": 22.01,
+        "to": 23,
+        "prices": {
+            "LP": {
+                "base": 391,
+                "autopay": 391,
+                "prepay": 3128,
+                "monthly": 260.67
+            },
+            "Fire Ant Control": {
+                "base": 690,
+                "autopay": 690,
+                "prepay": 5520,
+                "monthly": 460
+            },
+            "Core Aeration": {
+                "base": 443,
+                "autopay": 443,
+                "prepay": 3544,
+                "monthly": 295.33
+            }
+        }
+    },
+    {
+        "from": 23.01,
+        "to": 24,
+        "prices": {
+            "LP": {
+                "base": 408,
+                "autopay": 408,
+                "prepay": 3264,
+                "monthly": 272
+            },
+            "Fire Ant Control": {
+                "base": 720,
+                "autopay": 720,
+                "prepay": 5760,
+                "monthly": 480
+            },
+            "Core Aeration": {
+                "base": 461,
+                "autopay": 461,
+                "prepay": 3688,
+                "monthly": 307.33
+            }
+        }
+    },
+    {
+        "from": 24.01,
+        "to": 25,
+        "prices": {
+            "LP": {
+                "base": 425,
+                "autopay": 425,
+                "prepay": 3400,
+                "monthly": 283.33
+            },
+            "Fire Ant Control": {
+                "base": 750,
+                "autopay": 750,
+                "prepay": 6000,
+                "monthly": 500
+            },
+            "Core Aeration": {
+                "base": 474,
+                "autopay": 474,
+                "prepay": 3792,
+                "monthly": 316
+            }
+        }
+    },
+    {
+        "from": 25.01,
+        "to": 26,
+        "prices": {
+            "LP": {
+                "base": 442,
+                "autopay": 442,
+                "prepay": 3536,
+                "monthly": 294.67
+            },
+            "Fire Ant Control": {
+                "base": 780,
+                "autopay": 780,
+                "prepay": 6240,
+                "monthly": 520
+            },
+            "Core Aeration": {
+                "base": 492,
+                "autopay": 492,
+                "prepay": 3936,
+                "monthly": 328
+            }
+        }
+    },
+    {
+        "from": 26.01,
+        "to": 27,
+        "prices": {
+            "LP": {
+                "base": 459,
+                "autopay": 459,
+                "prepay": 3672,
+                "monthly": 306
+            },
+            "Fire Ant Control": {
+                "base": 810,
+                "autopay": 810,
+                "prepay": 6480,
+                "monthly": 540
+            },
+            "Core Aeration": {
+                "base": 505,
+                "autopay": 505,
+                "prepay": 4040,
+                "monthly": 336.67
+            }
+        }
+    },
+    {
+        "from": 27.01,
+        "to": 28,
+        "prices": {
+            "LP": {
+                "base": 476,
+                "autopay": 476,
+                "prepay": 3808,
+                "monthly": 317.33
+            },
+            "Fire Ant Control": {
+                "base": 840,
+                "autopay": 840,
+                "prepay": 6720,
+                "monthly": 560
+            },
+            "Core Aeration": {
+                "base": 523,
+                "autopay": 523,
+                "prepay": 4184,
+                "monthly": 348.67
+            }
+        }
+    },
+    {
+        "from": 28.01,
+        "to": 29,
+        "prices": {
+            "LP": {
+                "base": 493,
+                "autopay": 493,
+                "prepay": 3944,
+                "monthly": 328.67
+            },
+            "Fire Ant Control": {
+                "base": 870,
+                "autopay": 870,
+                "prepay": 6960,
+                "monthly": 580
+            },
+            "Core Aeration": {
+                "base": 536,
+                "autopay": 536,
+                "prepay": 4288,
+                "monthly": 357.33
+            }
+        }
+    },
+    {
+        "from": 29.01,
+        "to": 30,
+        "prices": {
+            "LP": {
+                "base": 510,
+                "autopay": 510,
+                "prepay": 4080,
+                "monthly": 340
+            },
+            "Fire Ant Control": {
+                "base": 900,
+                "autopay": 900,
+                "prepay": 7200,
+                "monthly": 600
+            },
+            "Core Aeration": {
+                "base": 554,
+                "autopay": 554,
+                "prepay": 4432,
+                "monthly": 369.33
+            }
+        }
+    },
+    {
+        "from": 30.01,
+        "to": 31,
+        "prices": {
+            "LP": {
+                "base": 527,
+                "autopay": 527,
+                "prepay": 4216,
+                "monthly": 351.33
+            },
+            "Fire Ant Control": {
+                "base": 930,
+                "autopay": 930,
+                "prepay": 7440,
+                "monthly": 620
+            },
+            "Core Aeration": {
+                "base": 567,
+                "autopay": 567,
+                "prepay": 4536,
+                "monthly": 378
+            }
+        }
+    },
+    {
+        "from": 31.01,
+        "to": 32,
+        "prices": {
+            "LP": {
+                "base": 544,
+                "autopay": 544,
+                "prepay": 4352,
+                "monthly": 362.67
+            },
+            "Fire Ant Control": {
+                "base": 960,
+                "autopay": 960,
+                "prepay": 7680,
+                "monthly": 640
+            },
+            "Core Aeration": {
+                "base": 585,
+                "autopay": 585,
+                "prepay": 4680,
+                "monthly": 390
+            }
+        }
+    },
+    {
+        "from": 32.01,
+        "to": 33,
+        "prices": {
+            "LP": {
+                "base": 561,
+                "autopay": 561,
+                "prepay": 4488,
+                "monthly": 374
+            },
+            "Fire Ant Control": {
+                "base": 990,
+                "autopay": 990,
+                "prepay": 7920,
+                "monthly": 660
+            },
+            "Core Aeration": {
+                "base": 598,
+                "autopay": 598,
+                "prepay": 4784,
+                "monthly": 398.67
+            }
+        }
+    },
+    {
+        "from": 33.01,
+        "to": 34,
+        "prices": {
+            "LP": {
+                "base": 578,
+                "autopay": 578,
+                "prepay": 4624,
+                "monthly": 385.33
+            },
+            "Fire Ant Control": {
+                "base": 1020,
+                "autopay": 1020,
+                "prepay": 8160,
+                "monthly": 680
+            },
+            "Core Aeration": {
+                "base": 616,
+                "autopay": 616,
+                "prepay": 4928,
+                "monthly": 410.67
+            }
+        }
+    },
+    {
+        "from": 34.01,
+        "to": 35,
+        "prices": {
+            "LP": {
+                "base": 595,
+                "autopay": 595,
+                "prepay": 4760,
+                "monthly": 396.67
+            },
+            "Fire Ant Control": {
+                "base": 1050,
+                "autopay": 1050,
+                "prepay": 8400,
+                "monthly": 700
+            },
+            "Core Aeration": {
+                "base": 629,
+                "autopay": 629,
+                "prepay": 5032,
+                "monthly": 419.33
+            }
+        }
+    },
+    {
+        "from": 35.01,
+        "to": 36,
+        "prices": {
+            "LP": {
+                "base": 612,
+                "autopay": 612,
+                "prepay": 4896,
+                "monthly": 408
+            },
+            "Fire Ant Control": {
+                "base": 1080,
+                "autopay": 1080,
+                "prepay": 8640,
+                "monthly": 720
+            },
+            "Core Aeration": {
+                "base": 647,
+                "autopay": 647,
+                "prepay": 5176,
+                "monthly": 431.33
+            }
+        }
+    },
+    {
+        "from": 36.01,
+        "to": 37,
+        "prices": {
+            "LP": {
+                "base": 629,
+                "autopay": 629,
+                "prepay": 5032,
+                "monthly": 419.33
+            },
+            "Fire Ant Control": {
+                "base": 1110,
+                "autopay": 1110,
+                "prepay": 8880,
+                "monthly": 740
+            },
+            "Core Aeration": {
+                "base": 660,
+                "autopay": 660,
+                "prepay": 5280,
+                "monthly": 440
+            }
+        }
+    },
+    {
+        "from": 37.01,
+        "to": 38,
+        "prices": {
+            "LP": {
+                "base": 646,
+                "autopay": 646,
+                "prepay": 5168,
+                "monthly": 430.67
+            },
+            "Fire Ant Control": {
+                "base": 1140,
+                "autopay": 1140,
+                "prepay": 9120,
+                "monthly": 760
+            },
+            "Core Aeration": {
+                "base": 678,
+                "autopay": 678,
+                "prepay": 5424,
+                "monthly": 452
+            }
+        }
+    },
+    {
+        "from": 38.01,
+        "to": 39,
+        "prices": {
+            "LP": {
+                "base": 663,
+                "autopay": 663,
+                "prepay": 5304,
+                "monthly": 442
+            },
+            "Fire Ant Control": {
+                "base": 1170,
+                "autopay": 1170,
+                "prepay": 9360,
+                "monthly": 780
+            },
+            "Core Aeration": {
+                "base": 691,
+                "autopay": 691,
+                "prepay": 5528,
+                "monthly": 460.67
+            }
+        }
+    },
+    {
+        "from": 39.01,
+        "to": 40,
+        "prices": {
+            "LP": {
+                "base": 680,
+                "autopay": 680,
+                "prepay": 5440,
+                "monthly": 453.33
+            },
+            "Fire Ant Control": {
+                "base": 1200,
+                "autopay": 1200,
+                "prepay": 9600,
+                "monthly": 800
+            },
+            "Core Aeration": {
+                "base": 709,
+                "autopay": 709,
+                "prepay": 5672,
+                "monthly": 472.67
+            }
+        }
+    },
+    {
+        "from": 40.01,
+        "to": 41,
+        "prices": {
+            "LP": {
+                "base": 697,
+                "autopay": 697,
+                "prepay": 5576,
+                "monthly": 464.67
+            },
+            "Fire Ant Control": {
+                "base": 1230,
+                "autopay": 1230,
+                "prepay": 9840,
+                "monthly": 820
+            },
+            "Core Aeration": {
+                "base": 722,
+                "autopay": 722,
+                "prepay": 5776,
+                "monthly": 481.33
+            }
+        }
+    },
+    {
+        "from": 41.01,
+        "to": 42,
+        "prices": {
+            "LP": {
+                "base": 714,
+                "autopay": 714,
+                "prepay": 5712,
+                "monthly": 476
+            },
+            "Fire Ant Control": {
+                "base": 1260,
+                "autopay": 1260,
+                "prepay": 10080,
+                "monthly": 840
+            },
+            "Core Aeration": {
+                "base": 740,
+                "autopay": 740,
+                "prepay": 5920,
+                "monthly": 493.33
+            }
+        }
+    },
+    {
+        "from": 42.01,
+        "to": 43,
+        "prices": {
+            "LP": {
+                "base": 731,
+                "autopay": 731,
+                "prepay": 5848,
+                "monthly": 487.33
+            },
+            "Fire Ant Control": {
+                "base": 1290,
+                "autopay": 1290,
+                "prepay": 10320,
+                "monthly": 860
+            },
+            "Core Aeration": {
+                "base": 753,
+                "autopay": 753,
+                "prepay": 6024,
+                "monthly": 502
+            }
+        }
+    },
+    {
+        "from": 43.01,
+        "to": 44,
+        "prices": {
+            "LP": {
+                "base": 748,
+                "autopay": 748,
+                "prepay": 5984,
+                "monthly": 498.67
+            },
+            "Fire Ant Control": {
+                "base": 1320,
+                "autopay": 1320,
+                "prepay": 10560,
+                "monthly": 880
+            },
+            "Core Aeration": {
+                "base": 771,
+                "autopay": 771,
+                "prepay": 6168,
+                "monthly": 514
+            }
+        }
+    },
+    {
+        "from": 44.01,
+        "to": 45,
+        "prices": {
+            "LP": {
+                "base": 765,
+                "autopay": 765,
+                "prepay": 6120,
+                "monthly": 510
+            },
+            "Fire Ant Control": {
+                "base": 1350,
+                "autopay": 1350,
+                "prepay": 10800,
+                "monthly": 900
+            },
+            "Core Aeration": {
+                "base": 784,
+                "autopay": 784,
+                "prepay": 6272,
+                "monthly": 522.67
+            }
+        }
+    },
+    {
+        "from": 45.01,
+        "to": 46,
+        "prices": {
+            "LP": {
+                "base": 782,
+                "autopay": 782,
+                "prepay": 6256,
+                "monthly": 521.33
+            },
+            "Fire Ant Control": {
+                "base": 1380,
+                "autopay": 1380,
+                "prepay": 11040,
+                "monthly": 920
+            },
+            "Core Aeration": {
+                "base": 802,
+                "autopay": 802,
+                "prepay": 6416,
+                "monthly": 534.67
+            }
+        }
+    },
+    {
+        "from": 46.01,
+        "to": 47,
+        "prices": {
+            "LP": {
+                "base": 799,
+                "autopay": 799,
+                "prepay": 6392,
+                "monthly": 532.67
+            },
+            "Fire Ant Control": {
+                "base": 1410,
+                "autopay": 1410,
+                "prepay": 11280,
+                "monthly": 940
+            },
+            "Core Aeration": {
+                "base": 815,
+                "autopay": 815,
+                "prepay": 6520,
+                "monthly": 543.33
+            }
+        }
+    },
+    {
+        "from": 47.01,
+        "to": 48,
+        "prices": {
+            "LP": {
+                "base": 816,
+                "autopay": 816,
+                "prepay": 6528,
+                "monthly": 544
+            },
+            "Fire Ant Control": {
+                "base": 1440,
+                "autopay": 1440,
+                "prepay": 11520,
+                "monthly": 960
+            },
+            "Core Aeration": {
+                "base": 833,
+                "autopay": 833,
+                "prepay": 6664,
+                "monthly": 555.33
+            }
+        }
+    },
+    {
+        "from": 48.01,
+        "to": 49,
+        "prices": {
+            "LP": {
+                "base": 833,
+                "autopay": 833,
+                "prepay": 6664,
+                "monthly": 555.33
+            },
+            "Fire Ant Control": {
+                "base": 1470,
+                "autopay": 1470,
+                "prepay": 11760,
+                "monthly": 980
+            },
+            "Core Aeration": {
+                "base": 846,
+                "autopay": 846,
+                "prepay": 6768,
+                "monthly": 564
+            }
+        }
+    },
+    {
+        "from": 49.01,
+        "to": 50,
+        "prices": {
+            "LP": {
+                "base": 850,
+                "autopay": 850,
+                "prepay": 6800,
+                "monthly": 566.67
+            },
+            "Fire Ant Control": {
+                "base": 1500,
+                "autopay": 1500,
+                "prepay": 12000,
+                "monthly": 1000
+            },
+            "Core Aeration": {
+                "base": 864,
+                "autopay": 864,
+                "prepay": 6912,
+                "monthly": 576
+            }
+        }
+    },
+    {
+        "from": 50.01,
+        "to": 51,
+        "prices": {
+            "LP": {
+                "base": 867,
+                "autopay": 867,
+                "prepay": 6936,
+                "monthly": 578
+            },
+            "Fire Ant Control": {
+                "base": 1530,
+                "autopay": 1530,
+                "prepay": 12240,
+                "monthly": 1020
+            },
+            "Core Aeration": {
+                "base": 877,
+                "autopay": 877,
+                "prepay": 7016,
+                "monthly": 584.67
+            }
+        }
+    },
+    {
+        "from": 51.01,
+        "to": 52,
+        "prices": {
+            "LP": {
+                "base": 884,
+                "autopay": 884,
+                "prepay": 7072,
+                "monthly": 589.33
+            },
+            "Fire Ant Control": {
+                "base": 1560,
+                "autopay": 1560,
+                "prepay": 12480,
+                "monthly": 1040
+            },
+            "Core Aeration": {
+                "base": 895,
+                "autopay": 895,
+                "prepay": 7160,
+                "monthly": 596.67
+            }
+        }
+    },
+    {
+        "from": 52.01,
+        "to": 53,
+        "prices": {
+            "LP": {
+                "base": 901,
+                "autopay": 901,
+                "prepay": 7208,
+                "monthly": 600.67
+            },
+            "Fire Ant Control": {
+                "base": 1590,
+                "autopay": 1590,
+                "prepay": 12720,
+                "monthly": 1060
+            },
+            "Core Aeration": {
+                "base": 908,
+                "autopay": 908,
+                "prepay": 7264,
+                "monthly": 605.33
+            }
+        }
+    },
+    {
+        "from": 53.01,
+        "to": 54,
+        "prices": {
+            "LP": {
+                "base": 918,
+                "autopay": 918,
+                "prepay": 7344,
+                "monthly": 612
+            },
+            "Fire Ant Control": {
+                "base": 1620,
+                "autopay": 1620,
+                "prepay": 12960,
+                "monthly": 1080
+            },
+            "Core Aeration": {
+                "base": 926,
+                "autopay": 926,
+                "prepay": 7408,
+                "monthly": 617.33
+            }
+        }
+    },
+    {
+        "from": 54.01,
+        "to": 55,
+        "prices": {
+            "LP": {
+                "base": 935,
+                "autopay": 935,
+                "prepay": 7480,
+                "monthly": 623.33
+            },
+            "Fire Ant Control": {
+                "base": 1650,
+                "autopay": 1650,
+                "prepay": 13200,
+                "monthly": 1100
+            },
+            "Core Aeration": {
+                "base": 939,
+                "autopay": 939,
+                "prepay": 7512,
+                "monthly": 626
+            }
+        }
+    },
+    {
+        "from": 55.01,
+        "to": 56,
+        "prices": {
+            "LP": {
+                "base": 952,
+                "autopay": 952,
+                "prepay": 7616,
+                "monthly": 634.67
+            },
+            "Fire Ant Control": {
+                "base": 1680,
+                "autopay": 1680,
+                "prepay": 13440,
+                "monthly": 1120
+            },
+            "Core Aeration": {
+                "base": 957,
+                "autopay": 957,
+                "prepay": 7656,
+                "monthly": 638
+            }
+        }
+    },
+    {
+        "from": 56.01,
+        "to": 57,
+        "prices": {
+            "LP": {
+                "base": 969,
+                "autopay": 969,
+                "prepay": 7752,
+                "monthly": 646
+            },
+            "Fire Ant Control": {
+                "base": 1710,
+                "autopay": 1710,
+                "prepay": 13680,
+                "monthly": 1140
+            },
+            "Core Aeration": {
+                "base": 970,
+                "autopay": 970,
+                "prepay": 7760,
+                "monthly": 646.67
+            }
+        }
+    },
+    {
+        "from": 57.01,
+        "to": 58,
+        "prices": {
+            "LP": {
+                "base": 986,
+                "autopay": 986,
+                "prepay": 7888,
+                "monthly": 657.33
+            },
+            "Fire Ant Control": {
+                "base": 1740,
+                "autopay": 1740,
+                "prepay": 13920,
+                "monthly": 1160
+            },
+            "Core Aeration": {
+                "base": 988,
+                "autopay": 988,
+                "prepay": 7904,
+                "monthly": 658.67
+            }
+        }
+    },
+    {
+        "from": 58.01,
+        "to": 59,
+        "prices": {
+            "LP": {
+                "base": 1003,
+                "autopay": 1003,
+                "prepay": 8024,
+                "monthly": 668.67
+            },
+            "Fire Ant Control": {
+                "base": 1770,
+                "autopay": 1770,
+                "prepay": 14160,
+                "monthly": 1180
+            },
+            "Core Aeration": {
+                "base": 1001,
+                "autopay": 1001,
+                "prepay": 8008,
+                "monthly": 667.33
+            }
+        }
+    },
+    {
+        "from": 59.01,
+        "to": 60,
+        "prices": {
+            "LP": {
+                "base": 1020,
+                "autopay": 1020,
+                "prepay": 8160,
+                "monthly": 680
+            },
+            "Fire Ant Control": {
+                "base": 1800,
+                "autopay": 1800,
+                "prepay": 14400,
+                "monthly": 1200
+            },
+            "Core Aeration": {
+                "base": 1019,
+                "autopay": 1019,
+                "prepay": 8152,
+                "monthly": 679.33
+            }
+        }
+    }
+]

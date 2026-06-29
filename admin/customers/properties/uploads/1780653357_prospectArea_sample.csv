@@ -1,0 +1,3 @@
+name,address,city,state,zip,lat,lon,area,customer_phone,customer_email,branch_phone,branch_address,branch_name,type
+"John Doe","123 Main Street","Los Angeles",CA,90001,34.052235,-118.243683,0.11,555-1234,john@example.com,555-5678,"1 Branch St Suite 100","LA Branch",Residential
+"Jane Smith","456 Market Street","San Francisco",CA,94105,37.774929,-122.419418,0.18,555-9876,jane@example.com,555-4321,"200 Market St","SF Branch",Commercial

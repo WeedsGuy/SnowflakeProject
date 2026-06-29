@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weedex — Service Details & Pricing</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root{
+      --primary:#2e7d32;
+      --primary-dark:#1b5e20;
+      --light:#f7f9f7;
+      --dark:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --shadow:0 8px 20px rgba(0,0,0,.06);
+      --radius:12px;
+
+      --fs-base:16px;
+      --fs-small:13.8px;
+      --fs-title:17.6px;
+      --fs-price:19.8px;
+
+      --page-max:1320px;
+      --sidebar-w:309px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:var(--light);
+      color:var(--dark);
+      line-height:1.55;
+      font-size:var(--fs-base);
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* Layout + common UI */
+    .hero{background:linear-gradient(160deg,#294b2f,#1f2a20);color:#fff;padding:1rem}
+    .hero-inner{max-width:var(--page-max);margin:0 auto;display:flex;gap:.83rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .hero h1{font-weight:900;font-size:1.38rem;margin:.06rem 0}
+
+    .wrap{max-width:var(--page-max);margin:1rem auto;padding:0 1rem}
+    .grid{display:grid;grid-template-columns:var(--sidebar-w) 1fr;gap:1rem}
+    @media(max-width:1140px){.grid{grid-template-columns:1fr}}
+
+    .card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:.83rem;
+    }
+    .card h3{color:var(--primary);margin-bottom:.46rem;font-weight:900;font-size:var(--fs-title)}
+
+    .muted{color:var(--muted)}
+    .warn{color:#b45309}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:.45rem;
+      padding:.50rem .78rem;border-radius:999px;font-weight:900;
+      cursor:pointer;border:2px solid transparent;font-size:var(--fs-small);
+      background:#fff;color:var(--dark);
+    }
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-outline{background:#fff;border-color:var(--primary);color:var(--primary)}
+
+    /* ---------- Map header (iframe background) ---------- */
+    .map-hero{
+      position:relative;
+      height:340px;
+      overflow:hidden;
+      border-bottom:1px solid var(--border);
+      background:#0b1a0f;
+
+      /* Push Google UI out of view */
+      --map-scale: 1.28;
+      --map-shift-x: -140px;
+      --map-shift-y: -98px;
+
+      /* Very slow horizontal pan (small range) */
+      --map-pan: 28px;
+    }
+    @media(max-width:700px){
+      .map-hero{
+        --map-scale: 1.32;
+        --map-shift-x: -154px;
+        --map-shift-y: -110px;
+        --map-pan: 22px;
+      }
+    }
+
+    /* wrapper so pan doesn't fight other animations */
+    .map-pan{
+      position:absolute;inset:0;
+      z-index:0;
+      pointer-events:none;
+      transform-origin:center;
+      will-change:transform;
+       animation: mapIntro 900ms ease-out both; 
+    }
+    .map-pan iframe{
+      width:100%;height:100%;
+      border:0;display:block;
+      pointer-events:none;
+      opacity:.86;
+      filter:brightness(.98) saturate(1.05);
+    }
+
+    @keyframes mapIntro{
+      from{
+        opacity:.65;
+        transform:translate(calc(var(--map-shift-x)*.65), calc(var(--map-shift-y)*.65)) scale(1.12);
+      }
+      to{
+        opacity:1;
+        transform:translate(var(--map-shift-x), var(--map-shift-y)) scale(var(--map-scale));
+      }
+    }
+    @keyframes mapPan{
+      from{ transform:translate(calc(var(--map-shift-x) - var(--map-pan)), var(--map-shift-y)) scale(var(--map-scale)); }
+      to  { transform:translate(calc(var(--map-shift-x) + var(--map-pan)), var(--map-shift-y)) scale(var(--map-scale)); }
+    }
+
+    /* overlay for readability */
+    .map-hero::after{
+      content:"";
+      position:absolute;inset:0;
+      background:rgba(0,0,0,.14);
+      z-index:1;
+      pointer-events:none;
+      animation:fadeIn 650ms ease-out both;
+    }
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    /* Mask common Google embed UI zones */
+    .map-ui-mask{position:absolute;inset:0;z-index:2;pointer-events:none}
+    .mask{
+      position:absolute;
+      background:rgba(0,0,0,.14);
+      animation:fadeDrop 650ms ease-out 120ms both;
+    }
+    @keyframes fadeDrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+    .mask.tl{
+      top:0;left:0;
+      width:clamp(280px, 36vw, 440px);
+      height:clamp(98px, 14vh, 140px);
+      border-bottom-right-radius:12px;
+    }
+    .mask.bl{
+      bottom:0;left:0;
+      width:clamp(220px, 28vw, 360px);
+      height:clamp(56px, 7vh, 86px);
+      border-top-right-radius:12px;
+    }
+    .mask.br{
+      bottom:0;right:0;
+      width:clamp(240px, 30vw, 380px);
+      height:clamp(70px, 9vh, 110px);
+      border-top-left-radius:12px;
+    }
+
+    /* Bottom “white bar” cover to hide any dark embed strip */
+    .map-bottom-cover{
+      position:absolute;left:0;right:0;bottom:0;
+      height:92px;
+      z-index:2;
+      pointer-events:none;
+      background:var(--light);
+    }
+
+    /* Featured card */
+    .featured-service{
+      position:absolute;left:50%;bottom:1.5rem;transform:translateX(-50%);
+      z-index:3;
+      background:#fff;border-radius:16px;
+      padding:1.5rem 1.75rem;
+      max-width:560px;width:calc(100% - 2rem);
+      box-shadow:0 20px 40px rgba(0,0,0,.25);
+      border:2px solid var(--primary);
+    }
+    .featured-badge{
+      display:inline-block;background:var(--primary);color:#fff;
+      font-size:.70rem;font-weight:900;padding:.25rem .60rem;border-radius:999px;
+    }
+    .featured-service h2{
+      font-size:1.45rem;font-weight:900;color:var(--primary-dark);
+      margin:.12rem 0 .40rem;
+    }
+    .featured-service p{color:#4b5563;font-size:.95rem;margin:0 0 1rem}
+    .featured-actions{display:flex;align-items:center;justify-content:space-between;gap:.66rem;flex-wrap:wrap}
+    .featured-price{font-size:1.60rem;font-weight:900;color:#111827;white-space:nowrap}
+
+    /* ---------- Us vs Competitor (no heading/subheading) ---------- */
+    .compare-wrap{max-width:var(--page-max);margin:1rem auto 0;padding:0 1rem}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media(max-width:960px){.compare-grid{grid-template-columns:1fr}}
+
+    .compare-card{
+      border-radius:16px;border:1px solid var(--border);
+      box-shadow:var(--shadow);overflow:hidden;background:#fff;
+    }
+    .compare-top{padding:1rem 1rem .75rem}
+    .compare-title{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+    .compare-title h4{font-weight:900;font-size:1.05rem}
+    .compare-pill{
+      font-size:.78rem;font-weight:900;border-radius:999px;
+      padding:.20rem .60rem;border:1px solid transparent;white-space:nowrap;
+    }
+
+    .compare-card.us{border-color:rgba(46,125,50,.35)}
+    .compare-card.us .compare-top{background:linear-gradient(135deg, rgba(46,125,50,.16), rgba(46,125,50,.06))}
+    .compare-card.us .compare-title h4{color:var(--primary-dark)}
+    .compare-card.us .compare-pill{background:rgba(46,125,50,.12);border-color:rgba(46,125,50,.25);color:var(--primary-dark)}
+
+    .compare-card.competitor .compare-top{background:linear-gradient(135deg, rgba(107,114,128,.14), rgba(107,114,128,.05))}
+    .compare-card.competitor .compare-title h4{color:#111827}
+    .compare-card.competitor .compare-pill{background:rgba(107,114,128,.10);border-color:rgba(107,114,128,.20);color:#374151}
+
+    .compare-list{list-style:none;padding:0 1rem 1rem;margin:0;display:grid;gap:.58rem}
+    .compare-item{display:flex;gap:.60rem;align-items:flex-start}
+    .compare-item .ico{width:22px;display:inline-flex;justify-content:center;flex:0 0 22px}
+    .compare-item small{display:block;color:var(--muted);margin-top:.08rem}
+
+    /* ---------- Services grid ---------- */
+    .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.66rem}
+    @media(max-width:960px){.services{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    
+    .svc{
+      display:flex;flex-direction:column;
+      border:1px solid var(--border);
+      border-radius:10px;background:#fff;overflow:hidden;
+      min-height:287px;
+    }
+    .svc-img-wrap{position:relative;overflow:hidden;aspect-ratio:16/9;max-height:122px}
+    .svc-img{width:100%;height:100%;object-fit:cover;display:block;will-change:transform;transition:transform 160ms ease-out;pointer-events:none}
+    .svc-body{display:grid;grid-template-rows:auto auto auto 1fr auto;gap:.50rem;padding:.78rem;min-height:165px}
+    .svc-title{font-size:var(--fs-title);font-weight:900;color:#0f5132;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+    .svc-desc{font-size:var(--fs-small);color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+    .meta{display:flex;justify-content:space-between;align-items:center;gap:.56rem}
+    .price{font-size:var(--fs-price);font-weight:900;line-height:1.2}
+    .actions{display:flex;gap:.44rem;flex-wrap:wrap;align-self:end}
+
+    /* Totals */
+    .totals{position:sticky;top:1rem;align-self:start}
+    .kv{display:grid;grid-template-columns:115px 1fr;gap:.40rem .56rem;align-items:center}
+    .line{display:flex;justify-content:space-between;align-items:center;margin:.28rem 0}
+    .total{font-size:1.20rem;font-weight:900}
+
+    @media (prefers-reduced-motion: reduce){
+      .svc-img{transition:none!important}
+      .map-pan{animation:none!important;transform:translate(var(--map-shift-x), var(--map-shift-y)) scale(var(--map-scale))}
+      .map-hero::after,.mask{animation:none!important}
+    }
+    .compare-list {
+        padding: 12px;
+    }
+    .compare-list .compare-item {
+        align-items: baseline;
+    }
+    .totals {
+        position: inherit;
+    }
+    .pay-title {
+        margin-bottom: 12px;
+    }
+    .card h3 {
+        margin-bottom: 20px;
+    }
+    @media (max-width: 767px) {
+    .services{ grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.66rem;}
+    .wrap { padding: 0 1rem; }
+    .card{ margin-bottom: 20px; }
+    .compare-list { padding: 12px; }
+    .compare-title h4{line-height: 24px;}
+    .btn-primary{ font-weight: 500; }
+    }
+    @media (max-width: 767px) {
+    .hero{ position: fixed; top: 0; left: 0; width: 100%;z-index: 1000; }
+    .map-hero{ margin-top: 148px; }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    
+    .hero{ position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
+    .map-hero{ margin-top: 92px; }
+        
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Your Lawn Care Bundle</h1>
+        <div style="opacity:.9;font-size:1em">Review your details.</div>
+      </div>
+      <div class="actions">
+        <a id="changeAddressLink" class="btn btn-outline" href="#">
+          <i class="fa-solid fa-map-location-dot"></i> Change Address
+        </a>
+        <a id="checkoutBtn" class="btn btn-primary" href="#">
+          <i class="fa-solid fa-cart-shopping"></i> Continue
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="map-hero" aria-label="Property map header">
+    <div class="map-pan" aria-hidden="true">
+      <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="map-ui-mask" aria-hidden="true">
+      <div class="mask tl"></div>
+      <div class="mask bl"></div>
+      <div class="mask br"></div>
+    </div>
+
+    <div class="map-bottom-cover" aria-hidden="true"></div>
+
+    <div class="featured-service" role="region" aria-label="Primary service: Weed Control and Fertilization">
+      <div class="featured-badge">Main Service</div>
+      <h2>Weed Control &amp; Fertilization</h2>
+      <p>Season-long fertilization with targeted weed suppression designed for consistent color, density, and weed prevention.</p>
+
+      <div class="featured-actions">
+        <span class="featured-price" id="featuredPrice">$—</span>
+
+        <button class="btn btn-primary" id="featuredAddBtn" type="button" style="display: none;">
+          <i class="fa-solid fa-plus"></i> Add Service
+        </button>
+
+        <button class="btn btn-outline" id="featuredAddedBtn" type="button" style="display:none">
+          <i class="fa-solid fa-check"></i> Added
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-wrap" aria-label="Us vs competitor comparison">
+    <div class="compare-grid">
+      <div class="compare-card us">
+        <div class="compare-top">
+          <div class="compare-title">
+            <h4>Us</h4>
+          </div>
+        </div>
+        <ul class="compare-list">
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-check" style="color:var(--primary)"></i></span>
+            <span>8 Applications<small>A consistent, season-long program that keeps your lawn healthy from early spring through late fall.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-check" style="color:var(--primary)"></i></span>
+            <span>Proactive visit notifications<small>We message you before each scheduled treatment.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-check" style="color:var(--primary)"></i></span>
+            <span>Liquid Fertilization<small>Liquid nutrients absorb quickly and evenly for faster, more visible results.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-check" style="color:var(--primary)"></i></span>
+            <span>Grub Control Included<small>Complete protection at no extra cost, so there are no surprises on your bill.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-check" style="color:var(--primary)"></i></span>
+            <span>Locally Owned and Operated<small>We live and work in your community, so your lawn is treated like our own.</small></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="compare-card competitor">
+        <div class="compare-top">
+          <div class="compare-title">
+            <h4>Other Guys</h4>
+          </div>
+        </div>
+        <ul class="compare-list">
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-xmark" style="color:var(--muted)"></i></span>
+            <span>Inconsistent Amount of Applications<small>Missed or fewer visits can lead to uneven results and declining lawn health.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-xmark" style="color:var(--muted)"></i></span>
+            <span>Limited communication<small>Less clarity on when services happen.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-xmark" style="color:var(--muted)"></i></span>
+            <span>Granular Fertilization<small>Slow and uneven absorption often means weaker performance.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-xmark" style="color:var(--muted)"></i></span>
+            <span>Spot Treatments Only<small>Weeds are treated reactively instead of preventing problems across the entire lawn.</small></span>
+          </li>
+          <li class="compare-item">
+            <span class="ico"><i class="fa-solid fa-xmark" style="color:var(--muted)"></i></span>
+            <span>National Chain<small>One-size-fits-all service with less personal attention and local expertise.</small></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap grid">
+    <section class="card totals">
+      <h3>Customer</h3>
+      <div class="kv">
+        <b>Address</b><div id="custAddress">—</div>
+        <b>Estimate Size</b><div id="custSize">—</div>
+      </div>
+
+      <hr style="margin:.78rem 0;border:none;border-top:1px solid var(--border)"/>
+      <div class="line"><span class="muted">Selected services</span><span id="selCount">0</span></div>
+      <div class="line"><span class="muted">Subtotal</span><span id="subtotal">$0</span></div>
+      <div class="line"><span class="muted">Taxes &amp; fees</span><span id="fees">$0</span></div>
+      <hr style="margin:.78rem 0;border:none;border-top:1px solid var(--border)">
+      <div class="pay-card" role="group" aria-label="Payment options">
+        <div class="pay-title"><b>Payment Option</b></div>
+
+        <div class="actions" style="gap:.38rem">
+          <button class="btn btn-primary" type="button" data-price-mode="autopay">
+            <i class="fa-solid fa-rotate"></i> AutoPay
+          </button>
+          <button class="btn btn-outline" type="button" data-price-mode="monthly">
+            <i class="fa-solid fa-calendar-day"></i> Monthly
+          </button>
+          <button class="btn btn-outline" type="button" data-price-mode="prepay">
+            <i class="fa-solid fa-circle-dollar-to-slot"></i> Annual (5% off)
+          </button>
+          <div class="muted" id="autopay-des">
+            AutoPay charges after each visit (8 applications total)
+          </div>
+        </div>
+
+        <div class="pay-summary muted" id="paySummary" style="display:none"></div>
+      </div>
+      <hr style="margin:.78rem 0;border:none;border-top:1px solid var(--border)">
+      <div class="line total" id="autopay-total"><span>Due per application</span><span id="autopay-grandTotal">$0</span></div>
+      <div class="line total" id="total" style="display: none;"><span>Total</span><span id="grandTotal">$0</span></div>
+    </section>
+
+    <section class="card">
+      <h3>Recommended Services</h3>
+      <div class="services" id="servicesGrid" aria-label="Services grid"></div>
+      <p class="muted" id="pricingFootnote" style="margin-top:.34rem"></p>
+    </section>
+  </main>
+
+<script>
+/* ---------- Helpers ---------- */
+function qs(p){ return new URLSearchParams(location.search).get(p); }
+function $id(id){ return document.getElementById(id); }
+function num(v){ const n=Number(v); return Number.isFinite(n)?n:null; }
+
+/* ---------- Base URL ---------- */
+const BASE_URL = new URL('.', document.baseURI);
+(function setNavLinks(){
+  const change = $id('changeAddressLink');
+  if (change) change.href = new URL('../index.html', BASE_URL).toString();
+})();
+
+/* ---------- Featured + exclusions ---------- */
+const FEATURED_ID = 'fertilization-and-weed-control';
+const FEATURED_NAME = 'Fertilization and Weed Control';
+const EXCLUDED_IDS = new Set(['soil-care','army-worm-program']);
+let FEATURED_PRICE = 0;
+let PRICING_MODE = 'autopay';
+const CART = new Map();
+function setActivePricingButton(){
+  document.querySelectorAll('[data-price-mode]').forEach(b=>{
+    const active = b.getAttribute('data-price-mode') === PRICING_MODE;
+    b.classList.toggle('btn-primary', active);
+    b.classList.toggle('btn-outline', !active);
+  });
+}
+async function bindPricingButtons(){
+  const chart = await loadPriceChart();
+  document.querySelectorAll('[data-price-mode]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      PRICING_MODE = b.getAttribute('data-price-mode') || 'autopay';
+      try{ sessionStorage.setItem('weedex.pricingMode', PRICING_MODE); }catch{}
+      setActivePricingButton();
+      
+      
+      const area = window.__WE_AREA__;
+      if(!area){
+        $id('pricingFootnote').innerHTML = '<span class="warn">No sq ft yet. Select an address to size your lot.</span>';
+        return;
+      }
+      const k = (area >= 50 ? area/1000 : area);
+      const tier = findTier(chart, k);
+      if(!tier){
+        $id('pricingFootnote').innerHTML = '<span class="warn">No tier found for your lot size.</span>';
+        return;
+      }
+      const svcs = inferServicesFromChart(chart);
+      const KEY_MAP = { 'Fertilization and Weed Control': 'LP' };
+
+      svcs.forEach(s => {
+        const key = KEY_MAP[s.name] ?? s.name;
+        const priceObj = tier.prices?.[key];
+        if(s.id === FEATURED_ID || s.name === FEATURED_NAME){
+          s.price = Number(priceObj?.[PRICING_MODE] ?? priceObj?.base ?? 0);
+        }
+        else{
+          if(CART.has(s.id)){
+            CART.set(s.id,Number(priceObj?.base ?? priceObj?.base ?? 0))
+          }
+          s.price = Number(priceObj?.base ?? priceObj?.base ?? 0);
+        }
+      });
+      const featuredSvc = svcs.find(s => s.id === FEATURED_ID || s.name === FEATURED_NAME);
+      FEATURED_PRICE = Number(featuredSvc?.price ?? 0);
+      if (CART.has(FEATURED_ID)) CART.set(FEATURED_ID, FEATURED_PRICE);
+
+      renderServices(svcs);
+      setFeaturedUI();
+      updateTotals();
+    });
+  });
+  setActivePricingButton();
+  try{ sessionStorage.setItem('weedex.pricingMode', PRICING_MODE); }catch{}
+}
+
+
+/* ---------- Customer hydrate + map ---------- */
+(function hydrate(){
+  bindPricingButtons()
+  let C=null; try{ C = JSON.parse(sessionStorage.getItem('weedex.customer') || 'null'); }catch{}
+  const newAddress = (qs('address')||'').trim() || null;
+  const newArea = num(qs('area'));
+
+  const storedAddress = (C && (C.address?.formattedAddress || C.address)) || '';
+  const storedArea = num(C?.area);
+
+  const address = newAddress ?? storedAddress ?? '';
+  let area = newArea ?? storedArea ?? (C?.programSize ? Number(C.programSize) * 1000 : null);
+  if (area == null && C && C.area != null){
+    const parsed = num(C.area);
+    if (parsed != null) area = parsed;
+  }
+
+  if (address && $id('mapFrame')){
+    // Satellite + reduced labels
+    $id('mapFrame').src = `https://www.google.com/maps?q=${encodeURIComponent(address)}&t=k&z=19&output=embed&layer=c`;
+  }
+
+  $id('custAddress').textContent = address || '—';
+  $id('custSize').textContent = area ? area.toLocaleString() + ' sq ft' : '—';
+  const finalArea = area != null ? area : storedArea ?? null;
+  window.__WE_AREA__ = finalArea;
+
+  const merged = { ...(C || {}) };
+  if (newAddress !== null) merged.address = newAddress;
+  else if (!merged.address && address) merged.address = address;
+
+  if (newArea != null) merged.area = newArea;
+  else if (merged.area == null && finalArea != null) merged.area = finalArea;
+
+  sessionStorage.setItem('weedex.customer', JSON.stringify(merged));
+})();
+
+/* ---------- Pricing chart loader ---------- */
+async function tryFetch(url){
+  const r = await fetch(url, {cache:'no-store'});
+  if(!r.ok) throw new Error(r.status + ' ' + r.statusText);
+  return await r.text();
+}
+function parseChartText(txt){
+  const t = txt.trim();
+  if (t.startsWith('[') || t.startsWith('{')) return JSON.parse(t);
+  const m = t.match(/(?:var|let|const)?\s*priceChart\s*=\s*(\[[\s\S]*?\]);?/);
+  if (m && m[1]) return JSON.parse(m[1]);
+  throw new Error('Unrecognized price chart format');
+}
+// async function loadPriceChart(){
+//   const override = qs('pricechart');
+//   const candidates = [
+//     override,
+//     new URL('../data/pricechart.txt', BASE_URL).toString(),
+//     new URL('data/pricechart.txt', BASE_URL).toString(),
+//     new URL('pricechart.txt', BASE_URL).toString()
+//   ].filter(Boolean);
+
+//   for (const p of candidates){
+//     console.log(parseChartText(await tryFetch(p)));
+//     try { return { data: parseChartText(await tryFetch(p)) }; } catch {}
+//   }
+//   throw new Error('price chart not found');
+// }
+
+async function loadPriceChart() {
+  const response = await fetch('../data/pricechart.json', {
+    cache: 'no-store'
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to load price chart');
+  }
+
+  const data = await response.json(); 
+  return data;                        
+}
+
+/* ---------- Services ---------- */
+const SERVICE_IMAGES = {
+  'Fertilization and Weed Control': 'spray2.jpg',
+  'Core Aeration': 'Core_Aeration.jpg',
+  'Fire Ant Control': 'ants.jpg',
+  ' Tree and Shrub Estimate ': 'tree.jpg'
+};
+function imgCandidates(filename){
+  return [new URL(`images/${filename}`, BASE_URL).toString(), new URL(`./images/${filename}`, BASE_URL).toString()];
+}
+function loadCardImage(imgEl, candidates){
+  let i=0;
+  imgEl.addEventListener('error', () => { if (++i < candidates.length) imgEl.src = candidates[i]; });
+  imgEl.src = candidates[0];
+}
+function findTier(chart,k){
+  const direct = chart.find(t => typeof t.to === 'number' && k >= t.from && k <= t.to);
+  if (direct) return direct;
+  if (!Array.isArray(chart) || chart.length === 0) return null;
+  const sorted = [...chart].sort((a,b)=>a.from-b.from);
+  if (k < sorted[0].from) return sorted[0];
+  if (k > sorted[sorted.length-1].to) return sorted[sorted.length-1];
+  return sorted.find(t => k <= t.from) || sorted[sorted.length-1];
+}
+function inferServicesFromChart(chart){
+  const keys = chart?.[0]?.prices ? Object.keys(chart[0].prices) : [];
+  const normalized = keys.map(k => k === 'Grub Control' ? ' Tree and Shrub Estimate ' : k);
+
+  // Keep ordering, but you can extend these later
+  const base = [
+    'Fertilization and Weed Control',
+    'Core Aeration',
+    'Fire Ant Control',
+    ' Tree and Shrub Estimate '
+  ];
+
+  const ordered = base.concat(normalized.filter(k => !base.includes(k))).filter((v,i,a)=>a.indexOf(v)===i);
+
+  const desc = {
+    'Fertilization and Weed Control':'Season-long fertilization with targeted weed suppression.',
+    'Core Aeration':'Relieves compaction to boost root growth.',
+    'Fire Ant Control':'Long-lasting elimination across the yard.',
+    ' Tree and Shrub Estimate ':'No cost estimate for tree and shrub services.'
+  };
+
+  return ordered.map(k => ({
+    id: k.toLowerCase().replace(/\s+/g,'-'),
+    name: k,
+    desc: desc[k] || 'Seasonal service.',
+    price: 0
+  }));
+}
+
+/* ---------- Cart ---------- */
+
+let LAST_TOTALS = { subtotal:0, fees:0, total:0 };
+function fmtUSD(n){ return '$' + Number(n||0).toFixed(2); }
+function updateTotals(){
+  const subtotal = [...CART.values()].reduce((a,b)=>a+b,0);
+  const fees = CART.size ? Math.round(subtotal * 0.0825 * 100) / 100 : 0;
+  const total = Math.round((subtotal+fees)*100)/100;
+
+  $id('selCount').textContent = CART.size;
+  $id('subtotal').textContent = fmtUSD(subtotal);
+  $id('fees').textContent = fmtUSD(fees);
+  $id('grandTotal').textContent = fmtUSD(total);
+  $id('autopay-grandTotal').textContent = fmtUSD(total);
+  if(PRICING_MODE!='autopay')
+  { 
+    $id('autopay-des').style.display='none'
+    $id('autopay-total').style.display = 'none'; 
+    $id('total').style.display = ''; 
+
+  } 
+  else {
+    $id('autopay-des').style.display=''
+    $id('total').style.display = 'none';
+    $id('autopay-total').style.display = '';
+  }
+  
+  LAST_TOTALS = { subtotal, fees, total };
+}
+function setFeaturedUI(){
+  $id('featuredPrice').textContent = fmtUSD(FEATURED_PRICE);
+  const selected = CART.has(FEATURED_ID);
+  $id('featuredAddBtn').style.display = selected ? 'none' : 'inline-flex';
+  $id('featuredAddedBtn').style.display = selected ? 'inline-flex' : 'none';
+}
+(function bindFeatured(){
+  $id('featuredAddBtn').addEventListener('click', () => {
+    CART.set(FEATURED_ID, Number(FEATURED_PRICE||0));
+    setFeaturedUI(); updateTotals();
+  });
+  $id('featuredAddedBtn').addEventListener('click', () => {
+    CART.delete(FEATURED_ID);
+    setFeaturedUI(); updateTotals();
+  });
+})();
+
+/* ---------- Render services ---------- */
+function renderServices(svcs){
+  const grid = $id('servicesGrid');
+  grid.innerHTML = '';
+
+  const filtered = svcs.filter(s => s.id !== FEATURED_ID && !EXCLUDED_IDS.has(s.id)).slice(0,6);
+
+  filtered.forEach(s => {
+    if(s.name !==  'LP'){
+    const sel = CART.has(s.id);
+    const div = document.createElement('div');
+    div.className = 'svc';
+
+    const imgName = SERVICE_IMAGES[s.name] || (s.id + '.jpg');
+    const isTreeShrub = s.name === ' Tree and Shrub Estimate ';
+    const priceText = isTreeShrub ? ' Free Quote ' : fmtUSD(s.price);
+
+    div.innerHTML = `
+      <div class="svc-img-wrap"><img class="svc-img" alt="${s.name}"/></div>
+      <div class="svc-body">
+        <div class="svc-title">${s.name}</div>
+        <div class="svc-desc">${s.desc}</div>
+        <div class="meta"><div class="price" data-price-for="${s.id}">${priceText}</div></div>
+        <div></div>
+        <div class="actions">
+          <button class="btn btn-primary" data-id="${s.id}" ${sel ? 'style="display:none"' : ''}>
+            <i class="fa-solid fa-plus"></i> Add
+          </button>
+          <button class="btn btn-outline" data-id="${s.id}" data-remove="1" ${sel ? '' : 'style="display:none"'}>
+            <i class="fa-solid fa-check"></i> Added
+          </button>
+        </div>
+      </div>
+    `;
+
+    loadCardImage(div.querySelector('.svc-img'), imgCandidates(imgName));
+    grid.appendChild(div);
+  }
+  });
+
+  bindCardAutoPan();
+}
+function bindCardAutoPan(){
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.svc').forEach(card => {
+    const img = card.querySelector('.svc-img');
+    if (!img) return;
+
+    let raf=0, start=0;
+    const phaseX=Math.random()*Math.PI*2, phaseY=Math.random()*Math.PI*2;
+    const SCALE=1.06, AMP_X=7, AMP_Y=5, SPEED_X=0.0022, SPEED_Y=0.0018;
+
+    function step(ts){
+      if(!start) start=ts;
+      const t=ts-start;
+      const x=Math.sin(t*SPEED_X+phaseX)*AMP_X;
+      const y=Math.cos(t*SPEED_Y+phaseY)*AMP_Y;
+      img.style.transform = `scale(${SCALE}) translate(${x}px, ${y}px)`;
+      raf=requestAnimationFrame(step);
+    }
+    card.addEventListener('mouseenter', () => { cancelAnimationFrame(raf); start=0; raf=requestAnimationFrame(step); });
+    card.addEventListener('mouseleave', () => { cancelAnimationFrame(raf); img.style.transform=''; });
+  });
+}
+(function bindGridClicks(){
+  $id('servicesGrid').addEventListener('click', e => {
+    const btn = e.target.closest('button.btn');
+    if(!btn) return;
+
+    const id = btn.getAttribute('data-id');
+    const price = Number($id('servicesGrid').querySelector(`[data-price-for="${id}"]`)?.textContent.replace(/[^0-9.]/g,'') || 0);
+
+    if (btn.hasAttribute('data-remove')) CART.delete(id);
+    else CART.set(id, price);
+
+    const card = btn.closest('.svc');
+    card.querySelector('.btn-primary').style.display = CART.has(id) ? 'none' : 'inline-flex';
+    card.querySelector('.btn-outline').style.display = CART.has(id) ? 'inline-flex' : 'none';
+
+    updateTotals();
+  });
+})();
+
+/* ---------- Init ---------- */
+(async function init(){
+  // Placeholder
+  renderServices([
+    {id:FEATURED_ID,name:FEATURED_NAME,desc:'Season-long fertilization with targeted weed suppression.',price:0},
+    {id:'core-aeration',name:'Core Aeration',desc:'Relieves compaction to boost root growth.',price:0},
+    {id:'fire-ant-control',name:'Fire Ant Control',desc:'Long-lasting elimination across the yard.',price:0},
+    {id:'grub-control',name:' Tree and Shrub Estimate ',desc:'Free estimate for tree and shrub services.',price:0}
+  ]);
+  FEATURED_PRICE = 0;
+  setFeaturedUI();
+  updateTotals();
+
+  const area = window.__WE_AREA__;
+  if(!area){
+    $id('pricingFootnote').innerHTML = '<span class="warn">No sq ft yet. Select an address to size your lot.</span>';
+    return;
+  }
+
+  try{
+    // const {data:chart} = await loadPriceChart();
+    const chart = await loadPriceChart();
+    
+    const k = (area >= 50 ? area/1000 : area);
+    const tier = findTier(chart, k);
+    if(!tier){
+      $id('pricingFootnote').innerHTML = '<span class="warn">No tier found for your lot size.</span>';
+      return;
+    }
+
+    const svcs = inferServicesFromChart(chart);
+    const KEY_MAP = { 'Fertilization and Weed Control': 'LP' };
+
+    // svcs.forEach(s => {
+    //   const key = KEY_MAP[s.name] ?? s.name;
+    //   s.price = Number(tier.prices[key] ?? 0);
+    // });
+
+    svcs.forEach(s => {
+      const key = KEY_MAP[s.name] ?? s.name;
+
+      const priceObj = tier.prices?.[key];
+      if(s.id === FEATURED_ID || s.name === FEATURED_NAME){
+      s.price = Number(priceObj?.[PRICING_MODE] ?? priceObj?.base ?? 0);
+      }
+      else{
+        s.price = Number(priceObj?.base ?? priceObj?.base ?? 0);
+      }
+    });
+
+    const featuredSvc = svcs.find(s => s.id === FEATURED_ID || s.name === FEATURED_NAME);
+    FEATURED_PRICE = Number(featuredSvc?.price ?? 0);
+    if (CART.has(FEATURED_ID)) CART.set(FEATURED_ID, FEATURED_PRICE);
+
+    setFeaturedUI();
+    renderServices(svcs);
+    updateTotals();
+    $id('pricingFootnote').textContent = 'Prices calculated using your property size.';
+
+    CART.set(FEATURED_ID, Number(FEATURED_PRICE||0));
+    setFeaturedUI(); updateTotals();
+
+  }catch(e){
+    $id('pricingFootnote').innerHTML = '<span class="warn">Could not load pricing file. Verify it is web-accessible.</span>';
+    console.error(e);
+  }
+})();
+
+/* ---------- Checkout ---------- */
+$id('checkoutBtn').addEventListener('click', e => {
+  e.preventDefault();
+  if (!CART.size){
+    alert('Please select at least one service to continue.');
+    return;
+  }
+
+  let customer=null; try{ customer = JSON.parse(sessionStorage.getItem('weedex.customer') || 'null'); }catch{}
+  if(!customer) customer = { address: $id('custAddress').textContent, area: window.__WE_AREA__ };
+  sessionStorage.setItem('weedex.customer', JSON.stringify(customer));
+
+  const selectedServices = [...CART.entries()].map(([id, price]) => {
+    if (id === FEATURED_ID) return { id, name: FEATURED_NAME, price };
+    const priceEl = document.querySelector(`[data-price-for="${id}"]`);
+    const card = priceEl ? priceEl.closest('.svc') : null;
+    const name = card ? card.querySelector('.svc-title').textContent.trim() : id;
+    return { id, name, price };
+  });
+
+  sessionStorage.setItem('weedex.checkout', JSON.stringify({ customer, services: selectedServices,priceMode:PRICING_MODE, totals: LAST_TOTALS }));
+  window.location.href = new URL('card.html', BASE_URL).toString();
+});
+</script>
+</body>
+</html>
+

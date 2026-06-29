@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Weedex — Premium Lawn Care</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- HERO -->
+  <header class="hero">
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#"><i class="fas fa-leaf"></i> Weedex</a>
+        <div class="navlinks">
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+          <a href="#" id="accountLookupNav" class="nav-account-link">Have an account?</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <h1>Premium Lawn Care Services</h1>
+      <p class="tagline">Transform your outdoor space with professional lawn care solutions. Healthy lawns start with Weedex.</p>
+
+      <!-- Search bar on the hero -->
+      <div class="search-hero" aria-label="Find your property">
+        <form id="addressForm" class="search-hero-form" novalidate>
+          <div class="search-hero-inputs">
+            <input id="addressInput" type="text" placeholder="Enter your property address" aria-label="Property address" required autocomplete="off"/>
+            <button type="submit" id="find_address" class="btn btn-primary">Find Address</button>
+          </div>
+          <p id="errorMsg" class="search-hero-error" role="alert" aria-live="polite" style="display:none;"></p>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <section id="services">
+      <h2 class="section-title">Popular Services</h2>
+      <div class="services">
+        <article class="card">
+          <img src="images/Core_Aeration.jpg" alt="Core Aeration">
+          <div class="content">
+            <h3>Core Aeration</h3>
+            <p class="meta">Improves soil oxygenation and nutrient absorption for healthier grass roots.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/soil.jpg" alt="Soil Care">
+          <div class="content">
+            <h3>Soil Care</h3>
+            <p class="meta">Optimized soil treatment to enhance lawn health and nutrient balance.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="images/ants.jpg" alt="Fire Ant Control">
+          <div class="content">
+            <h3>Fire Ant Control</h3>
+            <p class="meta">Complete fire ant colony elimination with long-lasting results.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Info + Map Modal -->
+  <!-- Info + Map Modal -->
+<div id="mapModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
+  <div class="modal-inner" style="
+    width: 100%;
+    max-width: 660px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: auto;
+    border-radius: 12px;
+    padding: 24px;
+    background: #fff;
+  ">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <h3 id="mapModalTitle" style="margin: 0 0 .75rem 0;">Confirm Property</h3>
+
+    <!-- Address + Button row -->
+    <div class="address-row" style="
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: .75rem;
+    ">
+      <div style="flex: 1; min-width: 0;">
+        <p style="margin: 0 0 .25rem 0; word-break: break-word;">
+          <strong>Mapped Address:</strong> <span id="mappedText"></span>
+        </p>
+        <p style="margin: 0;">
+          <strong>Estimated Area:</strong> <span id="areaText">—</span>
+        </p>
+      </div>
+      <div class="proceed-wrap" style="flex-shrink: 0; padding-top: 2px;">
+        <a id="proceedLink" href="#" class="btn btn-primary">Proceed to Services</a>
+      </div>
+    </div>
+
+    <!-- Map -->
+    <div class="map-frame-wrap" style="
+      position: relative;
+      width: 100%;
+      height: 350px;
+      border-radius: 8px;
+      overflow: hidden;
+    ">
+      <iframe
+        id="mapFrame"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;"
+      ></iframe>
+    </div>
+
+  </div>
+</div>
+
+<style>
+/* ── Map Modal ONLY ──────────────────────────────── */
+#mapModal {
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+#mapModal .btn{
+  padding: .4rem 1rem !important;
+}
+/* iPad (768–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  #mapModal {
+    align-items: flex-start;
+    padding-top: 36px;
+  }
+  #mapModal .map-frame-wrap {
+    height: 280px !important;
+  }
+}
+
+/* Mobile (≤ 600px) */
+@media (max-width: 600px) {
+  #mapModal {
+    align-items: flex-end;
+    padding: 0;
+  }
+  #mapModal .modal-inner {
+    max-width: 100% !important;
+    border-radius: 20px 20px 0 0 !important;
+    padding: 20px 16px 28px !important;
+  }
+  #mapModal .map-frame-wrap {
+    height: 220px !important;
+  }
+  /* Stack button below address on small phones */
+  #mapModal .address-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #mapModal .address-row .proceed-wrap {
+    padding-top: 10px;
+    width: 100%;
+  }
+  #mapModal .address-row .proceed-wrap a {
+    width: fit-content;
+    text-align: center;
+    display: block;
+  }
+}
+</style>
+
+  <!-- Account Lookup Modal -->
+  <div id="accountModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+    <div class="modal-inner">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <h3 id="accountModalTitle" style="margin:0 0 .4rem 0;">Already a customer?</h3>
+      <p id="accountContextMsg" style="margin:0 0 .4rem 0; color:#374151;"></p>
+      <p><strong>Program Size:</strong> <span id="accountAreaText">—</span></p>
+
+      <form id="accountLookupForm" novalidate>
+        <label class="field">
+          <span>Account Number</span>
+          <input id="accountNumberInput" type="text" inputmode="numeric" placeholder="e.g., 123456" required />
+        </label>
+        <label class="field">
+          <span>Email on Account</span>
+          <input id="emailInput" type="email" placeholder="you@example.com" required />
+        </label>
+
+        <p id="accountError" class="account-error" role="alert"></p>
+
+        <div class="account-actions">
+          <button type="submit" class="btn btn-primary">Verify</button>
+          <!-- <button type="button" class="btn btn-outline modal-close">Cancel</button> -->
+        </div>
+
+        <p class="account-note">For your privacy, we verify the email associated with this account.</p>
+      </form>
+    </div>
+  </div>
+
+  <footer id="contact">
+    <div class="foot">
+      <div>© <span id="year"></span> Weedex Lawn Care</div>
+      <div><a href="#services">Services</a> · <a href="#contact">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+const addressInput = document.getElementById("addressInput");
+const addressForm = document.getElementById("addressForm");
+const errorMsg = document.getElementById("errorMsg");
+
+// Create dropdown container
+const dropdown = document.createElement("div");
+dropdown.classList.add("search-dropdown");
+addressInput.parentNode.style.position = "relative";
+addressInput.parentNode.appendChild(dropdown);
+
+let debounceTimer = null;
+
+// 🔎 Live search with debounce
+addressInput.addEventListener("input", function () {
+
+    clearTimeout(debounceTimer);
+
+    const query = addressInput.value.trim();
+
+    if (query.length < 3) {
+        dropdown.innerHTML = "";
+        dropdown.style.display = "none";
+        return;
+    }
+
+    addressInput.addEventListener("input", function () {
+
+    clearTimeout(debounceTimer);
+
+    const query = addressInput.value.trim();
+
+    if (query.length < 3) {
+        dropdown.innerHTML = "";
+        dropdown.style.display = "none";
+        return;
+    }
+
+    debounceTimer = setTimeout(async () => {
+
+        const btn = document.getElementById("find_address");
+
+        btn.disabled = true;
+
+        dropdown.innerHTML = `
+            <div class="search-loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                Searching...
+            </div>
+        `;
+        dropdown.style.display = "block";
+
+        try {
+
+            const response = await fetch(
+                "search-address.php?address=" +
+                encodeURIComponent(query)
+            );
+
+            const data = await response.json();
+
+            dropdown.innerHTML = "";
+
+            if (!Array.isArray(data) || data.length === 0) {
+
+                dropdown.innerHTML = `
+                    <div class="search-no-results">
+                        No address found
+                    </div>
+                `;
+
+                return;
+            }
+
+            data.forEach(item => {
+
+                const div = document.createElement("div");
+                div.classList.add("search-item");
+                div.textContent = item.address;
+
+                div.addEventListener("click", function () {
+                    addressInput.value = item.address;
+                    dropdown.innerHTML = "";
+                    dropdown.style.display = "none";
+                });
+
+                dropdown.appendChild(div);
+            });
+
+        } catch (error) {
+
+            dropdown.innerHTML = `
+                <div class="search-no-results">
+                    Search failed
+                </div>
+            `;
+
+            console.error(error);
+
+        } finally {
+
+            btn.disabled = false;
+            dropdown.style.display = "block";
+
+        }
+
+    }, 300);
+});
+});
+
+// Hide dropdown if clicked outside
+document.addEventListener("click", function(e) {
+    if (!addressInput.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = "none";
+    }
+});
+</script>
+
+<style>
+.search-loading{
+    padding:12px;
+    text-align:center;
+    color:#666;
+    font-size:14px;
+}
+
+.search-loading i{
+    margin-right:6px;
+}
+
+.search-no-results{
+    padding:12px;
+    text-align:center;
+    color:#666;
+    font-size:14px;
+}
+#find_address:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.map-frame-wrap{ height: 350px;}
+.modal-inner{margin: 0 auto !important;}
+@media (max-width: 767px){
+  .map-frame-wrap{ height: auto; }
+  .modal-inner{ margin: 8vh auto; }
+}
+@media only screen and (min-width:480px) and (max-width: 1024px) {
+.modal-inner {height: 350px; overflow-y: scroll;}
+
+}
+.search-dropdown {
+    position: absolute;
+    background: #fff;
+    color: #374151;
+    width: 100%;
+    border: 1px solid #ddd;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    top:62px;
+}
+
+.search-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: #f5f5f5;
+}
+</style>
+
+<script>
+// ===== Config (use your confirmed URL casing) =====
+const NEXT_PAGE_URL = './mergedproject/store.html';
+const ACCOUNT_API_URL = './api/lookup_customer.php';
+const ACCOUNT_VERIFY_URL = './api/verify_customer.php';
+function customAlert(message, type = "info", duration = 3000) {
+  // Create overlay
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.top = 0;
+  overlay.style.left = 0;
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.backgroundColor = "rgba(0,0,0,0.4)";
+  overlay.style.display = "flex";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.zIndex = 9999;
+  overlay.style.opacity = 0;
+  overlay.style.transition = "opacity 0.3s";
+
+  // Create alert box
+  const alertBox = document.createElement("div");
+  alertBox.style.backgroundColor = "#fff";
+  alertBox.style.padding = "25px 30px";
+  alertBox.style.borderRadius = "12px";
+  alertBox.style.maxWidth = "90%";
+  alertBox.style.width = "350px";
+  alertBox.style.boxShadow = "0 10px 25px rgba(0,0,0,0.3)";
+  alertBox.style.textAlign = "center";
+  alertBox.style.transform = "scale(0.8)";
+  alertBox.style.transition = "transform 0.3s";
+
+  // Icon
+  const icon = document.createElement("div");
+  icon.style.fontSize = "40px";
+  icon.style.marginBottom = "15px";
+  switch (type) {
+    case "success":
+      icon.textContent = "✅";
+      break;
+    case "error":
+      icon.textContent = "❌";
+      break;
+    case "warning":
+      icon.textContent = "⚠️";
+      break;
+    default:
+      icon.textContent = "ℹ️";
+  }
+
+  // Message content
+  const content = document.createElement("div");
+  content.innerHTML = message;
+  content.style.fontSize = "16px";
+  content.style.color = "#333";
+  content.style.wordWrap = "break-word";
+  content.style.lineHeight = "1.4";
+
+  // Append elements
+  alertBox.appendChild(icon);
+  alertBox.appendChild(content);
+  overlay.appendChild(alertBox);
+  document.body.appendChild(overlay);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    overlay.style.opacity = 1;
+    alertBox.style.transform = "scale(1)";
+  });
+
+  // Auto close after duration
+  const timer = setTimeout(closeAlert, duration);
+
+  // Close function
+  function closeAlert() {
+    overlay.style.opacity = 0;
+    alertBox.style.transform = "scale(0.8)";
+    overlay.addEventListener("transitionend", () => overlay.remove());
+    clearTimeout(timer);
+  }
+
+  // Click overlay to close
+  overlay.addEventListener("click", closeAlert);
+}
+
+
+
+// Year stamp
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Modal helpers
+function openModal(el){ el?.classList.add('show'); el?.setAttribute('aria-hidden','false'); }
+function closeModal(el){ el?.classList.remove('show'); el?.setAttribute('aria-hidden','true'); }
+
+// Account modal triggers
+const accountModalEl = document.getElementById('accountModal');
+document.getElementById('accountLookupNav')?.addEventListener('click', e=>{ e.preventDefault(); openModal(accountModalEl); });
+document.getElementById('accountLookupHero')?.addEventListener('click', ()=>openModal(accountModalEl));
+accountModalEl?.addEventListener('click', e=>{ if(e.target.classList.contains('modal')|| e.target.classList.contains('modal-close')) closeModal(accountModalEl); });
+window.addEventListener('keydown', e=>{ if(e.key==='Escape' && accountModalEl?.classList.contains('show')) closeModal(accountModalEl); });
+
+// ===== CSV-driven branching =====
+const CSV_PROSPECT = { url: 'data/properties.csv' };
+const CSV_CUSTOMER = { url: 'data/CustomerCleanedList.csv' };
+const ADDRESS_ALIASES = ['address','full_address','street_address','propertyaddress','property address'];
+const AREA_ALIASES_PROSPECT = ['area','sqft','area_sqft','square_feet','sqft_total'];
+const PROGRAMSIZE_ALIASES = ['programsize','program size','program_size'];
+
+function normalizeAddress(str){
+  return String(str||'')
+    .toUpperCase().replace(/\./g,'').replace(/\,/g,'')
+    .replace(/\b(STREET)\b/g,'ST').replace(/\b(AVENUE)\b/g,'AVE')
+    .replace(/\b(ROAD)\b/g,'RD').replace(/\b(DRIVE)\b/g,'DR')
+    .replace(/\b(BOULEVARD)\b/g,'BLVD').replace(/\b(COURT)\b/g,'CT')
+    .replace(/\b(LANE)\b/g,'LN').replace(/\b(PLACE)\b/g,'PL').replace(/\b(TERRACE)\b/g,'TER')
+    .replace(/\s+/g,' ').trim();
+}
+function parseCSV(text){
+  const rows=[]; let i=0, cur='', inQ=false, row=[];
+  while(i<text.length){
+    const ch=text[i];
+    if(ch === '"'){ if(inQ && text[i+1] === '"'){ cur+='"'; i+=2; continue; } inQ=!inQ; i++; continue; }
+    if(ch === ',' && !inQ){ row.push(cur); cur=''; i++; continue; }
+    if((ch === '\n' || ch === '\r') && !inQ){
+      if(cur.length || row.length){ row.push(cur); rows.push(row); cur=''; row=[]; }
+      if(ch === '\r' && text[i+1] === '\n') i+=2; else i++; continue;
+    }
+    cur+=ch; i++;
+  }
+  if(cur.length || row.length){ row.push(cur); rows.push(row); }
+  return rows;
+}
+function findHeaderIndex(headerRow, aliases){
+  const lower = headerRow.map(h => String(h||'').trim().toLowerCase());
+  for(const alias of aliases){ const idx = lower.indexOf(alias); if(idx !== -1) return idx; }
+  return -1;
+}
+
+let PROSPECT_SET = new Set();
+let CUSTOMER_SET = new Set();
+let AREA_INDEX = new Map();
+let PROGRAM_INDEX = new Map();
+
+async function loadProspects(){
+  try{
+    const resp = await fetch(CSV_PROSPECT.url, { cache:'no-store' });
+    if(!resp.ok) return;
+    const text = await resp.text();
+    const rows = parseCSV(text); if(rows.length < 2) return;
+    const header = rows[0];
+    const ai = findHeaderIndex(header, ADDRESS_ALIASES);
+    const si = findHeaderIndex(header, AREA_ALIASES_PROSPECT);
+    if(ai < 0) return;
+    for(let r=1; r<rows.length; r++){
+      const addr = rows[r][ai]; if(!addr) continue;
+      const key = normalizeAddress(addr); PROSPECT_SET.add(key);
+      if(si >= 0){
+        const raw = rows[r][si];
+        const sqft = Number(String(raw||'').replace(/,/g,''));
+        if(!Number.isNaN(sqft) && sqft > 0 && !AREA_INDEX.has(key)) AREA_INDEX.set(key, sqft);
+      }
+    }
+  }catch{}
+}
+async function loadCustomers(){
+  try{
+    const resp = await fetch(CSV_CUSTOMER.url, { cache:'no-store' });
+    if(!resp.ok) return;
+    const text = await resp.text();
+    const rows = parseCSV(text); if(rows.length < 2) return;
+    const header = rows[0];
+    const ai = findHeaderIndex(header, ADDRESS_ALIASES.length ? ADDRESS_ALIASES : ['address']);
+    const pi = findHeaderIndex(header, PROGRAMSIZE_ALIASES.concat(['programsize']));
+    if(ai < 0) return;
+    for(let r=1; r<rows.length; r++){
+      const addr = rows[r][ai]; if(!addr) continue;
+      const key = normalizeAddress(addr); CUSTOMER_SET.add(key);
+      if(pi >= 0){
+        const raw = rows[r][pi];
+        const k = Number(String(raw||'').replace(/,/g,'').trim());
+        if(!Number.isNaN(k)){ const sqft = Math.round(k * 1000); PROGRAM_INDEX.set(key, sqft); }
+      }
+    }
+  }catch{}
+}
+async function preloadAddressDatasets(){
+  PROSPECT_SET.clear(); CUSTOMER_SET.clear(); AREA_INDEX.clear(); PROGRAM_INDEX.clear();
+  await Promise.all([loadProspects(), loadCustomers()]);
+}
+// preloadAddressDatasets();
+
+async function lookupProspectArea(addr){
+  const res = await fetch(
+      `customerApiSearch.php?address=${encodeURIComponent(addr)}`
+    );
+  const data = await res.json(); 
+  if(data.exists){
+   return "customerexist";
+  }
+  const value = parseFloat(data?.area);
+  return isNaN(value) ? null : value;
+}
+function lookupCustomerProgramSize(addr){
+  const key = normalizeAddress(addr);
+  const simple = key.replace(/\s#.*$/, '').trim();
+  return PROGRAM_INDEX.get(key) ?? PROGRAM_INDEX.get(simple) ?? null;
+}
+async function categorizeAddress(addr){
+  //const key = normalizeAddress(addr);
+  let inCustomer = false;
+  try {
+    const res = await fetch(
+      `customer.php?address=${encodeURIComponent(addr)}`
+    );
+    const data = await res.json(); 
+    if (data?.address === addr) {
+      inCustomer = true;
+    }
+
+  } catch (err) {
+    console.error("Customer API Error:", err);
+  }
+
+  //const simple = key.replace(/\s#.*$/, '').trim();
+// const inCustomer = CUSTOMER_SET.has(key) || CUSTOMER_SET.has(simple);
+// const inProspect = PROSPECT_SET.has(key) || PROSPECT_SET.has(simple);
+  if(inCustomer) return 'customer';
+  //if(inProspect) return 'prospect';
+  return 'unknown';
+}
+
+// ===== Form + Modals =====
+const form = document.getElementById('addressForm');
+const input = document.getElementById('addressInput');
+const err = document.getElementById('errorMsg');
+const mapModal = document.getElementById('mapModal');
+const mapFrame = document.getElementById('mapFrame');
+const mappedText = document.getElementById('mappedText');
+const areaText = document.getElementById('areaText');
+const accountAreaText = document.getElementById('accountAreaText');
+
+function openMap(){ openModal(mapModal); }
+function closeMap(){ closeModal(mapModal); }
+mapModal?.addEventListener('click', e=>{ if(e.target.classList.contains('modal')|| e.target.classList.contains('modal-close')) closeMap(); });
+window.addEventListener('keydown', e=>{ if(e.key==='Escape' && mapModal?.classList.contains('show')) closeMap(); });
+
+form?.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  err.style.display='none';
+
+  const fullAddress = (input.value || '').trim(); 
+
+  if(!fullAddress){
+    err.textContent = 'Please enter a valid address.';
+    err.style.display = 'block';
+    return;
+  }
+
+  const address = fullAddress.trim();
+  const q = encodeURIComponent(fullAddress);
+  if(mapFrame) mapFrame.src = `https://www.google.com/maps?q=${q}&t=k&z=19&output=embed`;
+  if(mappedText) mappedText.textContent = fullAddress;
+
+  //const category = await categorizeAddress(address);
+//   if (category === 'customer') {
+//   const sqft = lookupCustomerProgramSize(address);
+//   if (typeof sqft === 'number' && accountAreaText) {
+//     accountAreaText.textContent = sqft.toLocaleString() + ' sq ft';
+//   }
+
+//   // Update modal title and context copy
+//   const titleEl = document.getElementById('accountModalTitle');
+//   if (titleEl) titleEl.textContent = 'It looks like you have an account';
+
+//   const ctx = document.getElementById('accountContextMsg');
+//   if (ctx) {
+//     ctx.innerHTML = `It looks like you have an account, please sign in here:
+//       
+
+//       <a href="https://www2.lawngateway.com/Weedex" target="_blank" rel="noopener noreferrer">
+//         https://www2.lawngateway.com/Weedex
+//       </a>`;
+//   }
+
+//   // Hide the verification form (account number + email)
+//   const lookupForm = document.getElementById('accountLookupForm');
+//   if (lookupForm) lookupForm.style.display = 'none';
+
+//   openModal(accountModalEl);
+//   return;
+// }
+
+  const sqft = await lookupProspectArea(address).then((sqfte)=>{
+    if(sqfte=="customerexist"){
+      customAlert(
+          `Your account already exists. Please access the Weedex portal to continue:
+          <a href="https://www2.lawngateway.com/Weedex/" target="_blank" style="
+              color: #fff; 
+              background-color: #28a745; 
+              padding: 4px 8px; 
+              border-radius: 4px; 
+              text-decoration: none; 
+              font-weight: bold;
+              display: inline-flex;
+              align-items: center;
+              gap: 4px;">
+              🌐 www2.lawngateway.com
+          </a>`,
+          "warning",
+          10000
+        );
+    }
+    else if(!sqfte){
+     customAlert(
+        `We couldn't find your lot size. Please call our office 
+        <a href="tel:9727279207" style="
+            color: #fff; 
+            background-color: #007bff; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            text-decoration: none; 
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;">
+            📞 972-727-9207
+        </a> for an accurate measurement.`,
+        "warning",
+        10000
+      );
+      return;
+    }
+
+    if(typeof sqfte === 'number' && areaText){ 
+      if (!Number.isInteger(sqfte)) {
+        sqfte = sqfte * 1000;
+      }
+      areaText.textContent = sqfte.toLocaleString() + ' sq ft'; 
+      openMap(); 
+    }
+  });
+
+});
+
+// ===== Proceed to services =====
+const proceedLink = document.getElementById('proceedLink');
+proceedLink?.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const address = (document.getElementById('mappedText')?.textContent || '').trim();
+
+  const url = new URL(NEXT_PAGE_URL, window.location.href);
+
+  if (address) {
+    url.searchParams.set('address', address);
+  }
+
+  const m = (
+    areaText &&
+    /([\d,.]+)\s*sq\s*ft/i.test(areaText.textContent || '')
+  )
+    ? RegExp.$1.replace(/,/g, '')
+    : '';
+
+  if (m) {
+    url.searchParams.set('area', m);
+  }
+
+  console.log(url.toString());
+
+  window.location.href = url.toString();
+});
+// ===== Account verification (API-driven) =====
+(function(){
+  const accountForm = document.getElementById('accountLookupForm');
+  const accountInput = document.getElementById('accountNumberInput');
+  const emailInput = document.getElementById('emailInput');
+  const accountErr = document.getElementById('accountError');
+
+
+  function showErr(msg){ if(accountErr){ accountErr.textContent = msg; accountErr.style.display='block'; } }
+  function clearErr(){ if(accountErr){ accountErr.textContent=''; accountErr.style.display='none'; } }
+  function sameEmail(a,b){ return String(a||'').trim().toLowerCase() === String(b||'').trim().toLowerCase(); }
+
+  async function fetchCustomerById(id){
+    try{
+      const url = ACCOUNT_API_URL.includes('?') ? ACCOUNT_API_URL + '&id=' + encodeURIComponent(id)
+                                                : ACCOUNT_API_URL + '?id=' + encodeURIComponent(id);
+      const resp = await fetch(url, { method:'GET', headers:{'Accept':'application/json'} });
+      if(!resp.ok) throw new Error('not ok');
+      return await resp.json();
+    }catch(e){ throw new Error('lookup_failed'); }
+  }
+
+  accountForm?.addEventListener('submit', async (e)=>{
+    e.preventDefault(); clearErr();
+    const id = (accountInput?.value || '').trim();
+    const email = (emailInput?.value || '').trim();
+    if(!id){ return showErr('Please enter your account number.'); }
+    if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return showErr('Please enter a valid email.'); }
+
+    try{
+      const data = await fetchCustomerById(id);
+      const apiEmail = (data?.email || (Array.isArray(data?.emails) ? data.emails[0] : '') || '').trim();
+
+      if(!apiEmail){
+        try{
+          const verify = await fetch(ACCOUNT_VERIFY_URL, {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body: JSON.stringify({ id, email })
+          });
+          if(verify.ok){
+            const v = await verify.json();
+            if(!(v && (v.valid || v.verified))) return showErr('Verification failed.');
+          }else{ return showErr('Verification service unavailable.'); }
+        }catch{ return showErr('Verification service unavailable.'); }
+      }else if(!sameEmail(apiEmail, email)){
+        return showErr('Email does not match the email on file for this account.');
+      }
+
+      // ===== FLATTEN & SAVE for Page 2 =====
+      const rg = data || {};
+      const first = (rg.firstName || '').trim();
+      const lastInit = (rg.lastName || '').trim().slice(0,1);
+      const nameStr = (first || lastInit) ? (first + (lastInit ? ' ' + lastInit + '.' : '')) : ((rg.displayName || '').trim());
+      const phoneStr = (rg.preferredPhone && (rg.preferredPhone.number || rg.preferredPhone)) ||
+                       (Array.isArray(rg.phones) && rg.phones[0] && (rg.phones[0].number || rg.phones[0])) ||
+                       (rg.phone || '');
+      const addressText = (document.getElementById('mappedText')?.textContent || '').trim();
+      const addrStr = (rg.address && (rg.address.formattedAddress ||
+                    [rg.address.addressLine1, rg.address.city, rg.address.state, rg.address.zip].filter(Boolean).join(', '))) || addressText;
+      let areaVal = null;
+      if (typeof rg.size === 'number' && rg.size > 0) areaVal = Math.round(rg.size);
+      else if (typeof rg.programSize === 'number' && rg.programSize > 0) areaVal = Math.round(rg.programSize * 1000);
+
+      const payload = {
+        accountNumber: rg.id || id,
+        name: nameStr || '',
+        phone: phoneStr || '',
+        email: apiEmail || email,
+        address: addrStr || '',
+        area: areaVal || null,
+        verified: true
+      };
+      try{ sessionStorage.setItem('weedex.customer', JSON.stringify(payload)); }catch{}
+
+      const url = new URL(NEXT_PAGE_URL, window.location.href);
+      if(payload.address){ url.searchParams.set('address', payload.address); }
+      if(payload.area){ url.searchParams.set('area', String(payload.area)); }
+      url.searchParams.set('customerId', String(payload.accountNumber));
+      url.searchParams.set('verified', '1');
+      closeModal(accountModalEl);
+      window.location.href = url.toString();
+    }catch(err){
+      return showErr('We couldn’t find that account. Please check your number and try again.');
+    }
+  });
+})();
+</script>
+</body>
+</html>
+ 

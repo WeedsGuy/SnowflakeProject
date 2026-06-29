@@ -1,0 +1,7 @@
+{
+  "require": {
+    "evervault/evervault-php": "^0.1.1",
+    "aws/aws-sdk-php": "^3.360",
+    "phpmailer/phpmailer": "^7.0"
+  }
+}
