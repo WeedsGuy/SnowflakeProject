@@ -47,7 +47,7 @@ $migration = "admin";
     $checkSql = "
         SELECT 1
         FROM $database.$schema.ADMIN
-        WHERE USER_NAME = 'admin-1'
+        WHERE USER_NAME = 'admin'
         LIMIT 1
     ";
 
@@ -68,8 +68,8 @@ $migration = "admin";
                 PASSWORD
             )
             VALUES (
-                'admin-1',
-                'weedexbot@yopmail.com',
+                'admin',
+                'weedexbot@gmail.com',
                 '$passwordHashEsc'
             )
         ";
