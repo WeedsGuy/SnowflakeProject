@@ -2,7 +2,12 @@
 
 header('Content-Type: application/json');
 
-if (!isset($_GET['address']) || empty($_GET['address'])) {
+require_once __DIR__ . '/database/db.php';
+require_once __DIR__ . '/database/warehouse.php';
+
+$search = trim($_GET['address'] ?? '');
+
+if (empty($search)) {
     echo json_encode([
         "exists" => false,
         "error" => "address is required"
@@ -10,55 +15,72 @@ if (!isset($_GET['address']) || empty($_GET['address'])) {
     exit;
 }
 
-$customerAddress = $_GET['address'];
-$address = explode(",", $customerAddress);
+try {
 
-if (count($address) > 0) {
-    $customerAddress = urlencode($address[0]);
-}
+    datafactory($snowflake);
 
-$url = "https://saapi.realgreen.com/Customer/Search?CustomerStreetAddress=" . $customerAddress;
+    $search = strtolower($search);
 
-$ch = curl_init($url);
+    $sql = "
+        SELECT
+            CUSTOMER_NUMBER,
+            CUSTOMER_SIZE AS AREA,
+            CUSTOMER_EMAIL,
+            CUSTOMER_STATUS,
+            CUSTOMER_CITY AS CITY,
+            CONCAT(
+                CUSTOMER_STREET_NUMBER, ' ',
+                CUSTOMER_STREET_NAME, ' ',
+                CUSTOMER_SUFFIX, ', ',
+                CUSTOMER_CITY, ', ',
+                CUSTOMER_STATE, ' ',
+                CUSTOMER_ZIP
+            ) AS ADDRESS
+        FROM DIM_CUSTOMER
+        WHERE LOWER(CONCAT(
+            CUSTOMER_STREET_NUMBER, ' ',
+            CUSTOMER_STREET_NAME, ' ',
+            CUSTOMER_SUFFIX, ', ',
+            CUSTOMER_CITY, ', ',
+            CUSTOMER_STATE, ' ',
+            CUSTOMER_ZIP
+        )) LIKE '%{$search}%'
+        LIMIT 1
+    ";
 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, [
-    "accept: text/plain",
-    "apiKey: 3b6b0186-c36b-4120-8ff7-209ddafa2518"
-]);
+    $result = odbc_exec($snowflake, $sql);
 
-$response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    if (!$result) {
+        throw new Exception(odbc_errormsg($snowflake));
+    }
 
-curl_close($ch);
+    $data = odbc_fetch_array($result);
 
-// Case 1: API error or not found
-if ($httpCode !== 200 || !$response) {
-    echo json_encode([
-        "exists" => false,
-        "data" => null
-    ]);
-    exit;
-}
+    if (!$data) {
+        echo json_encode([
+            "exists" => false,
+            "data" => null
+        ]);
+        exit;
+    }
 
-// Try to decode JSON (if API returns JSON)
-$data = json_decode($response, true);
-// If JSON decoding failed, fallback to raw text
-if (json_last_error() !== JSON_ERROR_NONE) {
-    $exists = trim($response) !== "";
+   $data = array_change_key_case($data, CASE_LOWER);
+
+    // check status == 9
+    $exists = isset($data['customer_status']) && $data['customer_status'] == 9;
 
     echo json_encode([
         "exists" => $exists,
-        "data" => $exists ? $response : null
+        "area" => $data["area"] ?? null,
+        "city" => $data["city"] ?? null,
+        "address" => $data["address"] ?? null,
+        //"data" => $data
     ]);
-    exit;
+
+} catch (Throwable $e) {
+
+    echo json_encode([
+        "exists" => false,
+        "error" => $e->getMessage()
+    ]);
 }
-
-// If valid JSON
-$exists = count($data) > 0 && isset($data[0]['statusCharacter']) && $data[0]['statusCharacter'] == "9";
-
-echo json_encode([
-    "exists" => $exists,
-    "area" => $data[0]["size"] ?? null,
-    "data" => $data
-]);

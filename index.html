@@ -587,10 +587,21 @@ async function preloadAddressDatasets(){
 // preloadAddressDatasets();
 
 async function lookupProspectArea(addr){
+  const btn = document.getElementById("find_address");
+  dropdown.innerHTML = `
+            <div class="search-loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                Searching...
+            </div>
+        `;
+  dropdown.style.display = "block";
+  btn.disabled = true;
   const res = await fetch(
       `customerApiSearch.php?address=${encodeURIComponent(addr)}`
     );
   const data = await res.json(); 
+  btn.disabled = false;
+  dropdown.style.display = "none";
   if(data.exists){
    return "customerexist";
   }
@@ -644,7 +655,7 @@ window.addEventListener('keydown', e=>{ if(e.key==='Escape' && mapModal?.classLi
 form?.addEventListener('submit', async (e)=>{
   e.preventDefault();
   err.style.display='none';
-
+    
   const fullAddress = (input.value || '').trim(); 
 
   if(!fullAddress){
